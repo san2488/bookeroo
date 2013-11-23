@@ -1,7 +1,7 @@
 import csv
 import pandas as pd
 import numpy as np
-dir = '/Users/SAN/Documents/Classes/ALDA/Project/BX-CSV-Dump'
+dir = '<data-dir>'
 
 def load_data():
     return load_book_data(), load_user_data(), load_rating_data()
