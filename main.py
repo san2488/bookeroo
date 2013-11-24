@@ -31,9 +31,7 @@ mu = ratings_train_non0.mean()
 count = ratings_train_non0.count()
 
 print "Mean: "  + str(mu) + ", Count: " + str(count)
-
 # Mean: 7.60085608515, Count: 43220
-
 
 # rat_mat = pd.DataFrame(columns=books['ISBN'], index=users['User-ID'])
 

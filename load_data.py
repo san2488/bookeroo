@@ -32,3 +32,7 @@ def get_sample_data(data, sample_ratio, seed=1234):
     rows = np.random.choice(data.index, size=len(data.index)*(sample_ratio), replace=False)
 
     return data.drop(rows), data.ix[rows]
+
+def get_data_non0(data, field='Book-Rating'):
+    return data[data[field] != 0]
+
