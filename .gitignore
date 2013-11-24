@@ -4,4 +4,5 @@ man/
 include/
 *.pyc
 .*
+bookeroo.cfg
 !.gitignore
