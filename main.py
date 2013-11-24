@@ -2,6 +2,7 @@ from load_data import *
 from pprint import pprint
 import pandas as pd
 import numpy as np
+import numpy.ma as ma
 
 books, users, ratings = load_data()
 
@@ -13,7 +14,7 @@ books, users, ratings = load_data()
 # print users.ix[1:5]
 # print ratings.ix[1:5]
 
-ratings_train, ratings_test = get_training_test_data(ratings, 0.90)
+ratings_train, ratings_test = get_sample_data(ratings, 0.90)
 
 # print ratings_train
 # <class 'pandas.core.frame.DataFrame'>
@@ -24,9 +25,15 @@ ratings_train, ratings_test = get_training_test_data(ratings, 0.90)
 # Book-Rating    1034803  non-null values
 # dtypes: int64(2), object(1)
 
-mu = np.average(ratings_train['Book-Rating'])
+ratings_train_non0 = ma.masked_equal(ratings_train['Book-Rating'], 0)
 
-print mu
+mu = ratings_train_non0.mean()
+count = ratings_train_non0.count()
+
+print "Mean: "  + str(mu) + ", Count: " + str(count)
+
+# Mean: 7.60085608515, Count: 43220
+
 
 # rat_mat = pd.DataFrame(columns=books['ISBN'], index=users['User-ID'])
 
