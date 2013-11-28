@@ -26,3 +26,24 @@ def get_distance(v1,v2,mu):
 		return sum
 	else:
 		return 1000
+
+
+def get_nn(u1,v1,mat,users):
+	t = {}
+	for u in users:
+		if(u in mat):
+			t[u] = get_distance(v1,mat[u],0)
+	
+	#print t
+
+	mini = 1000
+	key = 0
+	for k,v in t.iteritems():
+		if(v < mini):
+			mini = v
+			key = k
+	return key
+
+
+	
+
