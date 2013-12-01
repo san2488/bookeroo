@@ -1,3 +1,4 @@
+from collections import *
 import numpy as np
 
 def get_rmse_from_data(data, actual_col="Book-Rating", predicted_col="pred-Book-Rating"):
@@ -28,22 +29,32 @@ def get_distance(v1,v2,mu):
 		return 1000
 
 
-def get_nn(u1,v1,mat,users):
-	t = {}
+def get_nn(u1,v1,k2,mat,users,knn):
+	
+	d = {}
 	for u in users:
 		if(u in mat):
-			t[u] = get_distance(v1,mat[u],0)
+			d[u] = get_distance(v1,mat[u],0)
 	
-	#print t
 
-	mini = 1000
-	key = 0
-	for k,v in t.iteritems():
-		if(v < mini):
-			mini = v
-			key = k
-	return key
+	
+	ord_dict = OrderedDict(sorted(d.items(), key=lambda t: t[1]))		
+	
+	count = 0;
+	tsum = 0
+	avgc = 0
 
+	for k in ord_dict.iterkeys():
+		count+=1
+		if(count <= knn):
+			#print count, knn, mat[k][k2] 
+			avgc += 1
+			tsum += mat[k][k2]
+
+	
+	tsum = tsum/avgc
+	return tsum
+	 
 
 	
 

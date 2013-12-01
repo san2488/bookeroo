@@ -56,25 +56,32 @@ for k1,k2 in bg:
 	mat_book[k1[0]] = tmp
 	k1[0], k1[1], k2[0]
 
-
+'''
 knn = []
 rmse = 0
 count = 0	
+'''
 
-for k1,v1 in mat_test.iteritems():
-	for k2,v2 in v1.iteritems():
-		if(k2 in mat_book):
-			t = {}
-			t['Book-Rating'] = v2
-			u = get_nn(k1,v1,mat,mat_book[k2].keys())
-			t['pred-Book-Rating'] = mat[u][k2]
-			t['rmse'] = (((t['Book-Rating'] - t['pred-Book-Rating'])**2)**0.5)
 
-			rmse += t['rmse']
-			count += 1
-			knn.append(t)
-
-rmse = rmse/count
-print rmse
+for i in range(1,11):
+	#knn = []
+	rmse = 0
+	count = 0	
+	for k1,v1 in mat_test.iteritems():
+		for k2,v2 in v1.iteritems():
+			if(k2 in mat_book):
+				#t = {}
+				#t['Book-Rating'] = v2
+				#u = get_nn(k1,v1,k2,mat,mat_book[k2].keys())
+				#t['pred-Book-Rating'] = get_nn(k1,v1,k2,mat,mat_book[k2].keys(),i)
+				#mat[u][k2]	
+				#t['rmse'] = (((t['Book-Rating'] - t['pred-Book-Rating'])**2)**0.5)
+				#rmse += t['rmse']
+				predict_val = get_nn(k1,v1,k2,mat,mat_book[k2].keys(),i)				
+				rmse += (((v2 - predict_val)**2)**0.5)
+				count += 1
+				#knn.append(t)
+	rmse = rmse/count
+	print "k= ",i," RMSE: ",rmse
 
 #1.46629419068
