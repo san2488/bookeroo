@@ -8,6 +8,21 @@ config.read('bookeroo.cfg')
 
 dir = config.get('bookeroo', 'bx-data-path')
 
+def get_k_folds(k=3):
+    ratings = load_rating_data()
+    fold_size = len(ratings) / k
+    folds = []
+    for i in range(k):
+        folds.append(ratings[i * fold_size:i * fold_size + fold_size])
+        pass
+    return folds
+
+def get_k_fold_data(i, k=3):
+    folds = get_k_folds(k)
+    test = folds[i]
+    del folds[i]
+    return pd.concat(folds), test
+
 def load_data():
     return load_book_data(), load_user_data(), load_rating_data()
 
