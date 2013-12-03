@@ -51,3 +51,9 @@ def get_sample_data(data, sample_ratio, seed=1234):
 def get_data_non0(data, field='Book-Rating'):
     return data[data[field] != 0]
 
+def get_userdata_non0(data, field='Age'):
+    tmp = data[~data[field].isnull()]
+    tmp = tmp[tmp[field] < 120]
+    return tmp[tmp[field] != 0]
+
+
