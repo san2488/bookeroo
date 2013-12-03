@@ -38,6 +38,7 @@ def get_data_non0(data, field='Book-Rating'):
 
 def get_userdata_non0(data, field='Age'):
     tmp = data[~data[field].isnull()]
+    tmp = tmp[tmp[field] < 120]
     return tmp[tmp[field] != 0]
 
 

@@ -175,7 +175,7 @@ def get_nn(u1,v1,k2,mat,users,knn,us):
 	tsum = tsum/avgc
 	return tsum
 	 
-def jaccard_weighted_distance(u1,v1,k2,mat,users,knn,us):
+def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
 	
 	d = {}
 	for u in users:

@@ -17,8 +17,8 @@ r = get_data_non0(ratings_train)
 t = get_data_non0(ratings_test)
 tb = get_data_non0(ratings_test)
 
-userdata = get_userdata_non0(load_user_data())
-users = userdata.groupby('User-ID')['Age'].values
+#userdata = get_userdata_non0(load_user_data())
+#users = userdata.groupby('User-ID')['Age'].values
 
 
 tb_mu = np.average(tb['Book-Rating'])
@@ -78,13 +78,6 @@ for k1,k2 in tbg:
 	#k1[0], k1[1], k2[0]
 
 
-
-
-
-
-
-
-
 #from utils import *
 
 import utils
@@ -98,7 +91,7 @@ for i in range(5,11):
 		for k2,v2 in v1.iteritems():
 			predict_val = 0
 			if(k2 in mat_book):
-				predict_val = age_weighted_distance(k1,v1,k2,mat,mat_book[k2].keys(),i,users)				
+				predict_val = jaccard_weighted_distance(k1,v1,k2,mat,mat_book[k2].keys(),i)				
 			else:
 				predict_val = baseline_dist(v1.values(),mat_book_test[k2].values(),tb_mu,delta)
 			#print "Predict", v2, " ",predict_val
