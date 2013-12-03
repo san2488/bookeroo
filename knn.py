@@ -17,6 +17,10 @@ r = get_data_non0(ratings_train)
 t = get_data_non0(ratings_test)
 tb = get_data_non0(ratings_test)
 
+userdata = get_userdata_non0(load_user_data())
+users = userdata.groupby('User-ID')['Age'].values
+
+
 tb_mu = np.average(tb['Book-Rating'])
 #print tb_mu
 
@@ -61,7 +65,7 @@ for k1,k2 in bg:
 		tmp = mat_book[k1[0]]
 	tmp[k1[1]] = k2[0]
 	mat_book[k1[0]] = tmp
-	k1[0], k1[1], k2[0]
+	#k1[0], k1[1], k2[0]
 
 
 mat_book_test = {}
@@ -71,27 +75,38 @@ for k1,k2 in tbg:
 		tmp = mat_book_test[k1[0]]
 	tmp[k1[1]] = k2[0]
 	mat_book_test[k1[0]] = tmp
-	k1[0], k1[1], k2[0]
+	#k1[0], k1[1], k2[0]
 
+
+
+
+
+
+
+
+
+#from utils import *
+
+import utils
+reload(utils)
+from utils import *
 
 for i in range(1,11):
-	#knn = []
 	rmse = 0
 	count = 0	
 	for k1,v1 in mat_test.iteritems():
 		for k2,v2 in v1.iteritems():
 			predict_val = 0
 			if(k2 in mat_book):
-				predict_val = get_nn(k1,v1,k2,mat,mat_book[k2].keys(),i)				
+				predict_val = age_weighted_distance(k1,v1,k2,mat,mat_book[k2].keys(),i,users)				
 			else:
 				predict_val = baseline_dist(v1.values(),mat_book_test[k2].values(),tb_mu,delta)
-				#print v2, " ",predict_val
-			
+			#print "Predict", v2, " ",predict_val
 			rmse += ((v2 - predict_val)**2)
 			count += 1
-
 	rmse = (rmse/count)**0.5
-
 	print "k = ",i," RMSE: ",rmse
+	#print "--------------------------------------------------------"
+	pass
 
-#1.46629419068
+
