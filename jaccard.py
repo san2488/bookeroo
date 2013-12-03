@@ -84,7 +84,7 @@ import utils
 reload(utils)
 from utils import *
 
-for i in range(1,20):
+for i in range(5,16):
 	rmse = 0
 	count = 0	
 	for k1,v1 in mat_test.iteritems():

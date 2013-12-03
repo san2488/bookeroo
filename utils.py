@@ -34,7 +34,7 @@ def get_distance(v1,v2,exst_book,mu):
 
 def get_jaccard_distance(v1,v2):
 	num = 0
-	den = 1
+	den = 0
 	
 
 	for k,v in v1.iteritems():
@@ -47,7 +47,9 @@ def get_jaccard_distance(v1,v2):
 		if(k not in v1):
 			den +=1
 
-	return num/den
+	#print "Num:", num, "Den:", den
+	j = num/(1.0 * den)
+	return j
 
 def baseline_dist(v1,v2,mu,delta):
 
@@ -140,7 +142,7 @@ def age_weighted_distance(u1,v1,k2,mat,users,knn,us):
 			rating = rating + adjustes_sums[k] * mat[k][k2]
 
 
-	rating = rating/tsum
+	rating = rating/(tsum*1.0)
 	#print "Adjust: ", adjustes_sums, "tsum", tsum, "U1", uage, "rating: ", rating
 	return rating
 	
@@ -168,7 +170,7 @@ def get_nn(u1,v1,k2,mat,users,knn):
 			tsum += mat[k][k2]
 
 	
-	tsum = tsum/avgc
+	tsum = tsum/(1.0*avgc)
 	return tsum
 	 
 def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
@@ -179,6 +181,7 @@ def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
 		if(u in mat):
 			d[u] = get_distance(v1,mat[u],k2,0)
 			adjustes_sums[u] = get_jaccard_distance(v1,mat[u])
+			#print "J : ", adjustes_sums[u]
 
 	
 	ord_dict = OrderedDict(sorted(d.items(), key=lambda t: t[1]))		
@@ -193,10 +196,12 @@ def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
 		count+=1
 		if(count <= knn):		
 			tsum += adjustes_sums[k]
-			rating = rating + adjustes_sums[k] * mat[k][k2]
+			rating = rating + (adjustes_sums[k] * mat[k][k2])
+		else:
+			break
 
 
-	rating = rating/tsum
+	rating = rating/(1.0*tsum)
 	#print "Adjust: ", adjustes_sums, "tsum", tsum, "U1", uage, "rating: ", rating
 	return rating
 	
