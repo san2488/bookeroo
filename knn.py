@@ -87,7 +87,7 @@ def knn(ratings_train,ratings_test):
 			for k2,v2 in v1.iteritems():
 				predict_val = 0
 				if(k2 in mat_book):
-					predict_val = age_weighted_distance(k1,v1,k2,mat,mat_book[k2].keys(),i,users)				
+					predict_val = get_nn(k1,v1,k2,mat,mat_book[k2].keys(),i,users)				
 				else:
 					predict_val = baseline_dist(v1.values(),mat_book_test[k2].values(),tb_mu,delta)
 				#print "Predict", v2, " ",predict_val

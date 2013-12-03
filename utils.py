@@ -129,18 +129,14 @@ def age_weighted_distance(u1,v1,k2,mat,users,knn,us):
 
 
 
-	tsum = np.sum(np.array(adjustes_sums.values()))
-	
-	
+	tsum = 0
 	count = 0;
 	rating = 0
 
 	for k in ord_dict.iterkeys():
 		count+=1
 		if(count <= knn):
-			#print count, knn, mat[k][k2] 
-			#print "Adjust Ratings",adjustes_sums[k]
-			#print adjustes_sums[k] * mat[k][k2]		
+			tsum += adjustes_sums[k]
 			rating = rating + adjustes_sums[k] * mat[k][k2]
 
 
@@ -149,7 +145,7 @@ def age_weighted_distance(u1,v1,k2,mat,users,knn,us):
 	return rating
 	
 
-def get_nn(u1,v1,k2,mat,users,knn,us):
+def get_nn(u1,v1,k2,mat,users,knn):
 	
 	d = {}
 	for u in users:
@@ -178,16 +174,17 @@ def get_nn(u1,v1,k2,mat,users,knn,us):
 def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
 	
 	d = {}
+	adjustes_sums = {}
 	for u in users:
 		if(u in mat):
 			d[u] = get_distance(v1,mat[u],k2,0)
-			adjustes_sums[k] = get_jaccard_distance(v1,mat[u])
+			adjustes_sums[u] = get_jaccard_distance(v1,mat[u])
 
 	
 	ord_dict = OrderedDict(sorted(d.items(), key=lambda t: t[1]))		
 	
-	tsum = np.sum(np.array(adjustes_sums.values()))
-	
+	#tsum = np.sum(np.array(adjustes_sums.values()))
+	tsum = 0
 	
 	count = 0;
 	rating = 0
@@ -195,6 +192,7 @@ def jaccard_weighted_distance(u1,v1,k2,mat,users,knn):
 	for k in ord_dict.iterkeys():
 		count+=1
 		if(count <= knn):		
+			tsum += adjustes_sums[k]
 			rating = rating + adjustes_sums[k] * mat[k][k2]
 
 

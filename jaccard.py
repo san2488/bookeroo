@@ -84,7 +84,7 @@ import utils
 reload(utils)
 from utils import *
 
-for i in range(5,11):
+for i in range(1,20):
 	rmse = 0
 	count = 0	
 	for k1,v1 in mat_test.iteritems():
@@ -99,8 +99,7 @@ for i in range(5,11):
 			count += 1
 	rmse = (rmse/count)**0.5
 	print "k = ",i," RMSE: ",rmse
+
 	#print "--------------------------------------------------------"
 	pass
 
-
->>>>>>> 48557195f27a896edf7d12327a09bc75f5cac83f
