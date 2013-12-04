@@ -81,7 +81,7 @@ def knn(ratings_train,ratings_test):
 
 
 	for i in range(1,16):
-		rmse = 0
+		rmse = 0	
 		count = 0	
 		for k1,v1 in mat_test.iteritems():
 			for k2,v2 in v1.iteritems():
@@ -90,7 +90,7 @@ def knn(ratings_train,ratings_test):
 					predict_val = get_nn(k1,v1,k2,mat,mat_book[k2].keys(),i,users)				
 				else:
 					predict_val = baseline_dist(v1.values(),mat_book_test[k2].values(),tb_mu,delta)
-				#print "Predict", v2, " ",predict_val
+				print "Predict", v2, " ",predict_val
 				rmse += ((v2 - predict_val)**2)
 				count += 1
 		rmse = (rmse/count)**0.5
